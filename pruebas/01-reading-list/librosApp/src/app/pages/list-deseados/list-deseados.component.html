@@ -1,0 +1,8 @@
+<div
+  class="drop-area"
+  (dragover)="onDragOver($event)"
+  (drop)="onDrop($event)">
+
+  <h2>LISTA DE DESEADOS</h2>
+  <app-book *ngFor="let book of booksDeseados"[book]="book"></app-book>
+</div>

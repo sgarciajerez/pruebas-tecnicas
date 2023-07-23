@@ -1,0 +1,15 @@
+.body_app{
+    display: grid;
+    grid-template-columns: 1em 2fr 1fr 1em;
+    grid-template-areas:
+    ". listado deseados ."
+    ;
+
+    .listado_component{
+        grid-area: listado;
+    }
+
+    .deseados{
+        grid-area:deseados;
+    }
+}

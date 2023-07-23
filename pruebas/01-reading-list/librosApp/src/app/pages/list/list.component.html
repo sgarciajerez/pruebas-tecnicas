@@ -5,5 +5,10 @@
 </select>
 <p>Número de libros disponibles: {{totalLibros}}</p>
 <div class="listado">
-    <app-book *ngFor="let book of books" [book]="book"></app-book>
+    <app-book 
+    *ngFor="let book of books" 
+    [book]="book"
+    draggable="true"
+    (dragstart)="onDragStart($event, book)"
+    ></app-book>
 </div>

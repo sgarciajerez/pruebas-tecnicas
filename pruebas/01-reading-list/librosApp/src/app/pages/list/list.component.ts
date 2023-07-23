@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { BookClass } from 'src/app/models/book.model';
 import { BookService } from 'src/app/services/book.service';
 
 @Component({
@@ -7,6 +8,8 @@ import { BookService } from 'src/app/services/book.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
+
+  @Input() book!:BookClass;
   
   generos: string[] = [
     'Todos',
@@ -52,11 +55,16 @@ export class ListComponent implements OnInit {
       this.books = this.booksSinFiltro;
     }
   }
+
   filterByGenre() {
     this.books = this.booksSinFiltro; //volvemos a llenar el array
     if (this.selectedGenre != 'Todos') {
       this.books = this.books.filter((el) => el.genre == this.selectedGenre);
     }
+  }
+
+  onDragStart(event:DragEvent, book:BookClass){
+    event.dataTransfer?.setData('application/json', JSON.stringify(book));   
   }
   
 }
