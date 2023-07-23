@@ -10,5 +10,8 @@
     [book]="book"
     draggable="true"
     (dragstart)="onDragStart($event, book)"
+    (dragend)="onDragEnd()"
+    (dragover)="onDragOver($event)"
+    (drop)="onDrop($event)"
     ></app-book>
 </div>

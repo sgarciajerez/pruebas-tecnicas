@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BookClass } from 'src/app/models/book.model';
+import { ArrayBookService } from 'src/app/services/array-book.service';
 
 @Component({
   selector: 'app-list-deseados',
@@ -8,13 +9,15 @@ import { BookClass } from 'src/app/models/book.model';
 })
 export class ListDeseadosComponent {
 
-  booksDeseados:BookClass[]= []; 
-  deseadoBook!:BookClass;
+  books:BookClass[]= []; 
+  book!:BookClass;
 
-  addLibroDeseado(book:BookClass):void{
-    if(!this.booksDeseados.find(el => el.ISBN==book.ISBN)){ //solo agrega objetos si no existe el isbn
-      this.booksDeseados.push(book);
-    }
+  constructor(private arrayOperations:ArrayBookService) {
+  }
+
+
+  get totalLibros(): number { //con este getter leo la longitud del array y si hay cambios
+    return this.books.length;
   }
 
   //capturar los eventos de arrastrar objetos
@@ -27,8 +30,8 @@ export class ListDeseadosComponent {
     // Se obtiene la cadena JSON del objeto del libro arrastrado desde el almacenamiento de datos
     const jsonString = event.dataTransfer?.getData('application/json');
     // Se convierte la cadena JSON en un objeto nuevamente
-    this.deseadoBook = JSON.parse(jsonString!);
-    this.addLibroDeseado(this.deseadoBook);
+    this.book = JSON.parse(jsonString!);  
+    this.arrayOperations.addLibro(this.books, this.book);
   }
 
 }

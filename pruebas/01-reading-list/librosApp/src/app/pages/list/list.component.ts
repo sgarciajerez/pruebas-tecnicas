@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BookClass } from 'src/app/models/book.model';
+import { ArrayBookService } from 'src/app/services/array-book.service';
 import { BookService } from 'src/app/services/book.service';
 
 @Component({
@@ -23,8 +24,9 @@ export class ListComponent implements OnInit {
   booksSinFiltro: any[] = [];
   selectedGenre: string = '';
   tituloBuscado: string = '';
+  private draggingBook: BookClass | null = null;
 
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService, private arrayOperators:ArrayBookService) {}
 
   ngOnInit(): void {
     this.loadBooks();
@@ -64,7 +66,31 @@ export class ListComponent implements OnInit {
   }
 
   onDragStart(event:DragEvent, book:BookClass){
-    event.dataTransfer?.setData('application/json', JSON.stringify(book));   
+    this.draggingBook=book;
+    event.dataTransfer?.setData('application/json', JSON.stringify(book)); 
   }
+
+  onDragEnd() {
+    console.log(this.draggingBook);
+    if (this.draggingBook) {
+      const index = this.books.findIndex((book) => book.ISBN === this.draggingBook?.ISBN);
+      if (index !== -1) {
+        this.books.splice(index, 1);
+      }
+      this.draggingBook = null;
+    }
+  }
+
+  onDrop(event: DragEvent) {
+    if(this.draggingBook){
+      this.draggingBook=null;
+    }
+  }
+
+  onDragOver (event:DragEvent){
+    event.preventDefault();  
+  }
+
+
   
 }
