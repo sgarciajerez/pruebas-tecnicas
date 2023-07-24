@@ -1,5 +1,6 @@
 <div class="book">
     <h3>{{book.title}}</h3>
+    <button [ngClass]="desired ? 'visible' : 'no-visible'" (click)="backToNormalList()">X</button>
     <img src="{{book.cover}}" alt="">
     <p>{{book.pages}}</p>
 </div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { BookClass } from 'src/app/models/book.model';
+import { BookClass } from 'src/app/models/bookClass.model';
 import { ArrayBookService } from 'src/app/services/array-book.service';
+import { DragService } from 'src/app/services/drag.service';
 
 @Component({
   selector: 'app-list-deseados',
@@ -12,7 +13,7 @@ export class ListDeseadosComponent {
   books:BookClass[]= []; 
   book!:BookClass;
 
-  constructor(private arrayOperations:ArrayBookService) {
+  constructor(private arrayOperations:ArrayBookService, private drag:DragService) {
   }
 
 
@@ -20,18 +21,21 @@ export class ListDeseadosComponent {
     return this.books.length;
   }
 
-  //capturar los eventos de arrastrar objetos
-  onDragOver (event:DragEvent){
-    event.preventDefault();  
-  }
-  onDrop(event: DragEvent) {
-    console.log('hola');
+  onDragOver(event:DragEvent){
     event.preventDefault();
-    // Se obtiene la cadena JSON del objeto del libro arrastrado desde el almacenamiento de datos
-    const jsonString = event.dataTransfer?.getData('application/json');
-    // Se convierte la cadena JSON en un objeto nuevamente
-    this.book = JSON.parse(jsonString!);  
-    this.arrayOperations.addLibro(this.books, this.book);
   }
+
+  onDrop(event:DragEvent){
+    this.book=this.drag.onDrop(event);
+    this.arrayOperations.addLibro(this.books,this.book);
+    this.book.desired=true;
+  }
+
+  
+  backToList(book: BookClass) {
+    this.books=this.arrayOperations.deleteLibro(this.books, book);
+  }
+
+  
 
 }

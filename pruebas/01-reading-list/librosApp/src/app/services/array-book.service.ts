@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BookClass } from "../models/book.model"; 
+import { BookClass } from "../models/bookClass.model"; 
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,7 @@ export class ArrayBookService {
       array=array.filter((el) => el.ISBN !== book.ISBN);
       return array;
   }
+
+  
 
 }
