@@ -1,8 +1,3 @@
-<input type="text" name="buscador" id="buscador" placeholder="Buscar" [(ngModel)]="tituloBuscado" (ngModelChange)="searchBook()">
-<select name="genero" id="genero" [(ngModel)]="selectedGenre" (ngModelChange)="filterByGenre()">
-    <option value="" disabled selected>Selecciona un género</option>
-    <option *ngFor="let genero of generos" value="{{genero}}">{{genero}}</option>
-</select>
 <p>Número de libros disponibles: {{totalLibros}}</p>
 <div class="listado">
     <app-book 

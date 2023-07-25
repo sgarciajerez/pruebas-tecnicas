@@ -9,13 +9,15 @@ import { BookService } from './services/book.service';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ListDeseadosComponent } from './pages/list-deseados/list-deseados.component';
+import { InputsComponent } from './components/inputs/inputs.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     BookComponent,
-    ListDeseadosComponent
+    ListDeseadosComponent,
+    InputsComponent
   ],
   imports: [
     BrowserModule,

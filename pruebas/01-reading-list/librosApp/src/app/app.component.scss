@@ -2,8 +2,13 @@
     display: grid;
     grid-template-columns: 1em 2fr 1fr 1em;
     grid-template-areas:
+    ". inputs inputs ."
     ". listado deseados ."
     ;
+
+    .inputs{
+        grid-area: inputs;
+    }
 
     .listado_component{
         grid-area: listado;

@@ -1,4 +1,22 @@
 <div class="body_app">
-    <app-list [bookEliminado]="book" class="listado_component"></app-list>
-    <app-list-deseados class="deseados" (bookEliminado)="backToList($event)"></app-list-deseados>
+    <app-inputs 
+    class="inputs"
+    [books]="books"
+    (selectedGenre)="getFilterGenre($event)"
+    (selectedTitle)="getFilterTitle($event)"
+    ></app-inputs>
+    
+    <app-list 
+    class="listado_component"
+    [bookEliminado]="book"
+    [books]="books"
+    [selectedGenre]="selectedGenre"
+    [selectedTitle]="selectedTitle"
+    ></app-list>
+
+    <app-list-deseados 
+    class="deseados"
+    (bookEliminado)="backToList($event)"
+    [selectedGenre]="selectedGenre"
+    ></app-list-deseados>
 </div>  

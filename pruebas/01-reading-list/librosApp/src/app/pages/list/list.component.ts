@@ -1,8 +1,8 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { BookClass } from 'src/app/models/bookClass.model';
 import { ArrayBookService } from 'src/app/services/array-book.service';
-import { BookService } from 'src/app/services/book.service';
 import { DragService } from 'src/app/services/drag.service';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-list',
@@ -11,64 +11,25 @@ import { DragService } from 'src/app/services/drag.service';
 })
 export class ListComponent implements OnInit, OnChanges {
 
-  @Input() bookEliminado!:BookClass;
-  
-  generos: string[] = [
-    'Todos',
-    'Fantasía',
-    'Ciencia ficción',
-    'Zombies',
-    'Terror',
-  ];
-
-  books: any[] = [];
+  @Input() bookEliminado!:any;
+  @Input() books!:BookClass[];
+  @Input() selectedGenre!:string;
+  @Input() selectedTitle!:string;
   booksSinFiltro: any[] = [];
-  selectedGenre: string = '';
-  tituloBuscado: string = '';
-
-  constructor(private bookService: BookService, private drag:DragService, private arrayOperators:ArrayBookService) {}
+  
+  constructor(private drag:DragService, private arrayOperators:ArrayBookService, private filterService:FilterService) {}
 
   ngOnInit(): void {
-    this.loadBooks();
-    console.log(this.bookEliminado);
-    
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
+    this.filterByTitle(); 
+    this.filterByGenre();
     this.backToList();
   }
 
   get totalLibros(): number { //con este getter leo la longitud del array y si hay cambios
     return this.books.length;
-  }
-
-  loadBooks() {
-    this.bookService.getBooks()
-      .then((res) => {
-        this.books = res.library.map((bookData:any) => ({ //desestructuramos el objeto y le añadimos la propiedad desired
-          ...bookData.book,
-          desired: false,
-        }));
-        this.booksSinFiltro = this.books; //guardamos la info también en un array auxiliar
-      })
-      .catch((error) => console.log(error));
-  }
-
-  searchBook() {
-    if (this.tituloBuscado != '') {
-      this.books = this.books.filter((el) =>
-        el.title.toLowerCase().includes(this.tituloBuscado)
-      );
-    } else {
-      this.books = this.booksSinFiltro;
-    }
-  }
-
-  filterByGenre() {
-    this.books = this.booksSinFiltro; //volvemos a llenar el array
-    if (this.selectedGenre != 'Todos') {
-      this.books = this.books.filter((el) => el.genre == this.selectedGenre);
-    }
   }
 
   onDragStart(event:DragEvent, book:BookClass){
@@ -79,13 +40,32 @@ export class ListComponent implements OnInit, OnChanges {
     this.books=this.drag.onDragEnd(this.books);
   }
 
-  backToList() {
-    if(this.bookEliminado!=null){
+  backToList() {   
+    if(this.bookEliminado){
+      this.bookEliminado.desired=false;
       this.books=this.arrayOperators.addLibro(this.books, this.bookEliminado);
-      console.log(this.books);
-      
+      this.books=this.arrayOperators.ordenarArray(this.books);
+      this.bookEliminado=null; //tenemos que volver a eliminar la variable para que no entre en el if
     }
   }
+
+  filterByGenre(){
+    if(this.selectedGenre && this.selectedGenre!='Todos'){
+      this.books=this.filterService.filterByGenre(this.books, this.selectedGenre);
+      if(this.selectedTitle) { //esto lo ponemos para que el buscador funcione también cuando aplicamos un filtro por género
+        this.filterByTitle();
+      }    
+    }
+  }
+
+  filterByTitle(){
+    if(this.selectedTitle!=''){
+      this.books=this.filterService.searchByTitle(this.selectedTitle, this.books);      
+    } else{
+      this.books=this.filterService.deleteFilter();
+    }
+  }
+
 
   
 }

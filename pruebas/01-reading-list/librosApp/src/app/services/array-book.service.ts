@@ -20,6 +20,13 @@ export class ArrayBookService {
       return array;
   }
 
+  ordenarArray(array:BookClass[]):BookClass[]{
+    array=array.sort(function(a, b) {          
+      return a.title.localeCompare(b.title);
+    });
+    return array; 
+  }
+
   
 
 }

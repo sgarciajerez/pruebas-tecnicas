@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BookClass } from '../models/bookClass.model';
+import { ArrayBookService } from './array-book.service';
+import { FilterService } from './filter.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DragService {
 
-  constructor() { }
+  constructor(private arrayOperators:ArrayBookService, private filterService:FilterService) { }
 
   private isDropped:boolean=false;
   private draggingBook!:any;
@@ -20,10 +22,9 @@ export class DragService {
     if (this.isDropped) {
       //reseteamos variables
       this.isDropped=false;
-      const index = array.findIndex((el) => el.ISBN === this.draggingBook.ISBN);
-      if (index !== -1) {
-        array.splice(index, 1);
-      }
+      array=this.arrayOperators.deleteLibro(array, this.draggingBook);
+      console.log(array);
+      this.filterService.deleteLibroEnFilter(this.draggingBook);
     }
     this.draggingBook=null;
     return array;
