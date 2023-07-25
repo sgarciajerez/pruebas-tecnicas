@@ -1,4 +1,4 @@
 <div class="body_app">
-    <app-list class="listado_component"></app-list>
-    <app-list-deseados class="deseados"></app-list-deseados>
+    <app-list [bookEliminado]="book" class="listado_component"></app-list>
+    <app-list-deseados class="deseados" (bookEliminado)="backToList($event)"></app-list-deseados>
 </div>  

@@ -24,8 +24,7 @@ export class BookComponent implements OnInit {
       this.setDesired(false);
     }
   }
-    
-    
+        
   setDesired(boolean:boolean){
     this.desired=boolean;
   }

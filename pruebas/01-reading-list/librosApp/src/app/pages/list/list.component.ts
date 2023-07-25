@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { BookClass } from 'src/app/models/bookClass.model';
 import { ArrayBookService } from 'src/app/services/array-book.service';
 import { BookService } from 'src/app/services/book.service';
@@ -9,9 +9,9 @@ import { DragService } from 'src/app/services/drag.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnChanges {
 
-  @Input() book!:BookClass;
+  @Input() bookEliminado!:BookClass;
   
   generos: string[] = [
     'Todos',
@@ -30,6 +30,12 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadBooks();
+    console.log(this.bookEliminado);
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.backToList();
   }
 
   get totalLibros(): number { //con este getter leo la longitud del array y si hay cambios
@@ -73,10 +79,12 @@ export class ListComponent implements OnInit {
     this.books=this.drag.onDragEnd(this.books);
   }
 
-  backToList(book: BookClass) {
-    console.log('Evento eliminado recibido con el libro:', book);
-    // Implementa la lógica para eliminar el libro y actualizar el array de libros
-    // usando el servicio arrayOperators o cualquier otro método que prefieras.
+  backToList() {
+    if(this.bookEliminado!=null){
+      this.books=this.arrayOperators.addLibro(this.books, this.bookEliminado);
+      console.log(this.books);
+      
+    }
   }
 
   

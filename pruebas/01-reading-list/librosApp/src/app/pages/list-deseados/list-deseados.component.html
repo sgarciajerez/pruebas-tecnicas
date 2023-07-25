@@ -4,7 +4,6 @@
   (drop)="onDrop($event)">
   <h2>LISTA DE DESEADOS</h2>
   <p>Total de libros: {{totalLibros}}</p>
-  <app-book *ngFor="let book of books"[book]="book" (eliminado)="backToList($event)"
-  >
+  <app-book *ngFor="let book of books"[book]="book" (eliminado)="deleteFromList($event)">
   </app-book>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { BookClass } from 'src/app/models/bookClass.model';
 import { ArrayBookService } from 'src/app/services/array-book.service';
 import { DragService } from 'src/app/services/drag.service';
@@ -13,6 +13,7 @@ export class ListDeseadosComponent {
   books:BookClass[]= []; 
   book!:BookClass;
 
+  @Output() bookEliminado = new EventEmitter<BookClass>;
   constructor(private arrayOperations:ArrayBookService, private drag:DragService) {
   }
 
@@ -32,7 +33,8 @@ export class ListDeseadosComponent {
   }
 
   
-  backToList(book: BookClass) {
+  deleteFromList(book: BookClass) {
+    this.bookEliminado.emit(book);
     this.books=this.arrayOperations.deleteLibro(this.books, book);
   }
 
