@@ -23,7 +23,6 @@ export class DragService {
       //reseteamos variables
       this.isDropped=false;
       array=this.arrayOperators.deleteLibro(array, this.draggingBook);
-      console.log(array);
       this.filterService.deleteLibroEnFilter(this.draggingBook);
     }
     this.draggingBook=null;

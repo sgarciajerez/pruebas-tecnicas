@@ -22,9 +22,7 @@ export class FilterService {
   }
 
   deleteLibroEnFilter(book:BookClass){
-    this.booksSinFiltro=this.arrayOperators.deleteLibro(this.booksSinFiltro,book);
-    console.log(this.booksSinFiltro);
-    
+    this.booksSinFiltro=this.arrayOperators.deleteLibro(this.booksSinFiltro,book);   
   }
 
 
@@ -37,7 +35,6 @@ export class FilterService {
   }
 
   searchByTitle(title:string, books:BookClass[]):BookClass[]{
-    console.log(books);
     if (title != '') {
       books = books.filter((el) =>
         el.title.toLowerCase().includes(title)

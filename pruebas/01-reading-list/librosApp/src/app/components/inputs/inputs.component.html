@@ -1,6 +1,13 @@
-<input type="text" name="buscador" id="buscador" placeholder="Buscar" [(ngModel)]="tituloBuscado" (ngModelChange)="emitSearch()">
-<select name="genero" id="genero" [(ngModel)]="generoBuscado" (ngModelChange)="emitGenre()">
-    <option value="" disabled selected>Selecciona un género</option>
-    <option *ngFor="let genero of generos" value="{{genero}}">{{genero}}</option>
-</select>
-
+<section class="inputs">
+    <div class="buscador">
+        <input type="text" name="buscador" id="buscador" placeholder="Buscar" [(ngModel)]="tituloBuscado" (ngModelChange)="emitSearch()">
+        <i class="material-icons">search</i>
+    </div>
+    <div class="selector">
+        <select name="genero" id="genero" [(ngModel)]="generoBuscado" (ngModelChange)="emitGenre()">
+            <option value="" disabled selected>Selecciona un género</option>
+            <option *ngFor="let genero of generos" value="{{genero}}">{{genero}}</option>
+        </select>
+        <i class="material-icons">auto_stories</i>
+    </div>
+</section>

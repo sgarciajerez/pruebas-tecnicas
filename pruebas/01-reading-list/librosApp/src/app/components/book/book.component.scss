@@ -1,23 +1,52 @@
+$letra-color: #733636;
+$marron-medio-color: #D9C99A;
+$marron-claro-color: #F1F2CE;
+$marron-oscuro-color: #736048;
+$color-azul: #3966BF;
+
 .book{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 350px;
-    width: 200px;
-    margin: 20px;
-    h3{
-        text-align: center;
+    width: 170px;
+    height: 250px;
+    figure{
+        position: relative;
+        button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: $color-azul;
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 2;
+            transition: all ease-in 0.1s;
+        }
+
+        button:hover{
+            opacity: 0.8;
+            font-size: 24px;
+        }
+
+        img{
+            max-width: 150px;
+            cursor: pointer;
+            transition: all ease-in 0.1s;
+            border-radius: 5px;
+            z-index: 1;
+        }
+        img:hover{
+            opacity: 0.8;
+            max-width: 140px;
+        }
+
     }
-    img{
-        max-width: 150px;
-        cursor: pointer;
-        transition: all ease-in 0.1s;
-    }
-    img:hover{
-        opacity: 0.8;
-        max-width: 140px;
-    }
+    
 }
 
 .visible{

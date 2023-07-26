@@ -1,10 +1,12 @@
-<p>Número de libros disponibles: {{totalLibros}}</p>
-<div class="listado">
-    <app-book 
-    *ngFor="let book of books" 
-    [book]="book"
-    draggable="true"
-    (dragstart)="onDragStart($event, book)"
-    (dragend)="onDragEnd()"
-    ></app-book>
-</div>
+<section class="listado">
+    <p>Quedan <span>{{totalLibros}}</span> libros disponibles</p>
+    <div class="listado_books">
+        <app-book 
+        *ngFor="let book of books" 
+        [book]="book"
+        draggable="true"
+        (dragstart)="onDragStart($event, book)"
+        (dragend)="onDragEnd()"
+        ></app-book>
+    </div>
+</section>

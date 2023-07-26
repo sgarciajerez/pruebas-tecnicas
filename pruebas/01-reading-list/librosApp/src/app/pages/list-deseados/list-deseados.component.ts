@@ -37,7 +37,12 @@ export class ListDeseadosComponent implements OnChanges{
   onDrop(event:DragEvent){
     this.book=this.drag.onDrop(event);
     this.books=this.arrayOperations.addLibro(this.books,this.book);
-    this.booksAuxiliar=this.books;
+    //esto lo hacemos para que se puedan soltar libros también y no genere conflicto cuando los filtros están activados
+    if(this.selectedGenre && this.selectedGenre != 'Todos'){
+      this.booksAuxiliar.push(this.book);
+    } else{  
+      this.booksAuxiliar=this.books;
+    }
     this.book.desired=true;
   }
 

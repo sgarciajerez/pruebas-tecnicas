@@ -1,10 +1,32 @@
+$letra-color: #733636;
+$marron-medio-color: #D9C99A;
+$marron-claro-color: #F1F2CE;
+$marron-oscuro-color: #736048;
+$color-azul: #3966BF;
+
+h1{
+    margin: 0;
+    padding: 40px;
+    background-color: $letra-color;
+    color: $marron-claro-color;
+    font-size: 40px;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 10px $marron-oscuro-color solid;
+}
+
 .body_app{
+    padding: 20px;
     display: grid;
-    grid-template-columns: 1em 2fr 1fr 1em;
+    min-height: 83vh;
+    grid-template-columns: 1em 2fr 0.6fr 1em;
+    grid-template-rows: 0.2fr 2fr;
     grid-template-areas:
     ". inputs inputs ."
     ". listado deseados ."
     ;
+
+    background-color: $marron-claro-color;
 
     .inputs{
         grid-area: inputs;

@@ -1,6 +1,29 @@
+$letra-color: #733636;
+$marron-medio-color: #D9C99A;
+$marron-claro-color: #F1F2CE;
+$marron-oscuro-color: #736048;
+
+
 .listado{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+    padding: 30px 30px 0 0;
+    p{
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 20px;
+        padding: 20px;
+        color: $letra-color;
+        background-color: $marron-medio-color;
+        border-radius: 10px;
+        
+        span{
+            color: black;
+        }
+    }
+    
+    .listado_books{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
 }
